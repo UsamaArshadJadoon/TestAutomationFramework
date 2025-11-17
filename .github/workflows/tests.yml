@@ -1,0 +1,43 @@
+name: API Test Suite
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Navigate to project and install dependencies
+      run: |
+        cd test-automation-foundation
+        npm install
+    
+    - name: Install Playwright
+      run: |
+        cd test-automation-foundation
+        npx playwright install chromium
+    
+    - name: Run tests
+      run: |
+        cd test-automation-foundation
+        npm test
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: test-automation-foundation/playwright-report/
+        retention-days: 30

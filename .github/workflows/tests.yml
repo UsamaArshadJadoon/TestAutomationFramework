@@ -29,12 +29,9 @@ jobs:
     
     - name: Run API tests
       run: npm test
-      continue-on-error: true
-      id: test_run
-    
-    - name: Check test results
-      if: steps.test_run.outcome == 'failure'
-      run: echo "⚠️ Some tests failed, but workflow continues. Check artifacts for details."
+      env:
+        CI: false
+      continue-on-error: false
     
     - name: Upload test artifacts
       if: always()

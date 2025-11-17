@@ -23,12 +23,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 2 : undefined,
   
   /* Reporter to use */
-  reporter: process.env.CI ? [
-    ['html', { open: 'never' }],
-    ['list'],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['github']
-  ] : [
+  reporter: [
     ['html', { open: 'never' }],
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }]

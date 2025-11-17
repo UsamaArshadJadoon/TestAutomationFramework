@@ -16,39 +16,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: Debug directory structure
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Directory contents:"
-        ls -la
-        echo "Looking for test-automation-foundation:"
-        ls -la test-automation-foundation/ || echo "Directory not found"
-    
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
     
     - name: Install dependencies
-      run: |
-        if [ -d "test-automation-foundation" ]; then
-          cd test-automation-foundation
-          npm ci
-        else
-          echo "test-automation-foundation directory not found"
-          exit 1
-        fi
+      run: npm ci
     
     - name: Install Playwright browsers
-      run: |
-        cd test-automation-foundation
-        npx playwright install chromium --with-deps
+      run: npx playwright install chromium --with-deps
     
     - name: Run API tests
-      run: |
-        cd test-automation-foundation
-        npm test || echo "Tests completed with issues"
+      run: npm test
+      continue-on-error: true
     
     - name: Upload test artifacts
       if: always()
@@ -56,7 +37,7 @@ jobs:
       with:
         name: test-reports
         path: |
-          test-automation-foundation/playwright-report/
-          test-automation-foundation/test-results/
+          playwright-report/
+          test-results/
         retention-days: 7
       continue-on-error: true

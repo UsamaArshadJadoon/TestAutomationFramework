@@ -23,11 +23,15 @@ module.exports = defineConfig({
   workers: process.env.CI ? 2 : undefined,
   
   /* Reporter to use */
-  reporter: [
+  reporter: process.env.CI ? [
     ['html', { open: 'never' }],
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }],
-    ...(process.env.CI ? [['github']] : [])
+    ['github']
+  ] : [
+    ['html', { open: 'never' }],
+    ['list'],
+    ['json', { outputFile: 'test-results/results.json' }]
   ],
   
   /* Shared settings for all the projects below */
@@ -54,7 +58,7 @@ module.exports = defineConfig({
       name: 'API Tests',
       testMatch: /.*\.spec\.js/,
       use: {
-        ...devices['Desktop Chrome'],
+        // API tests don't need browser-specific settings
       },
     },
   ],

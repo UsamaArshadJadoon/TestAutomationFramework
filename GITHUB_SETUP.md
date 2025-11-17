@@ -70,7 +70,7 @@ git commit -m "Initial commit: Complete test automation framework
 - Set up ESLint for code quality"
 
 # Add your GitHub repository as remote
-git remote add origin https://github.com/YOUR-USERNAME/test-automation-foundation.git
+git remote add origin https://github.com/UsamaArshadJadoon/TestAutomationFramework.git
 
 # Push to GitHub
 git push -u origin main
@@ -206,10 +206,10 @@ Total time spent: ~6 hours
 
 Once your repository is live, update these:
 
-- Repository: `https://github.com/YOUR-USERNAME/test-automation-foundation`
+- Repository: `https://github.com/UsamaArshadJadoon/TestAutomationFramework`
 - CI/CD Badge: Available in Actions tab
-- Issues: `https://github.com/YOUR-USERNAME/test-automation-foundation/issues`
-- Discussions: `https://github.com/YOUR-USERNAME/test-automation-foundation/discussions`
+- Issues: `https://github.com/UsamaArshadJadoon/TestAutomationFramework/issues`
+- Discussions: `https://github.com/UsamaArshadJadoon/TestAutomationFramework/discussions`
 
 ## 💡 Next Steps
 

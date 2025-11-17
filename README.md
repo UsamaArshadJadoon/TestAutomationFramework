@@ -1,6 +1,6 @@
 # Test Automation Foundation - JSONPlaceholder API
 
-[![CI/CD Pipeline](https://github.com/your-username/test-automation-foundation/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/test-automation-foundation/actions)
+[![CI/CD Pipeline](https://github.com/UsamaArshadJadoon/TestAutomationFramework/actions/workflows/ci.yml/badge.svg)](https://github.com/UsamaArshadJadoon/TestAutomationFramework/actions)
 
 A production-ready test automation framework demonstrating best practices for API testing, CI/CD integration, and quality strategy.
 

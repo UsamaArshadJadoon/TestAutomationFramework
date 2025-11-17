@@ -261,7 +261,7 @@ test.describe('Users API - Performance', () => {
     
     const responses = await Promise.all(requests);
     
-    responses.forEach((response, index) => {
+    responses.forEach((response) => {
       expect(response.status()).toBe(200);
     });
   });

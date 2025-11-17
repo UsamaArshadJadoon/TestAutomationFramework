@@ -92,7 +92,7 @@ class TestDataFactory {
         body: 'y'.repeat(10000)
       },
       sqlInjection: {
-        title: "'; DROP TABLE posts; --",
+        title: '\'; DROP TABLE posts; --',
         body: '1 OR 1=1'
       },
       xssAttempt: {

@@ -91,7 +91,7 @@ jobs:
         run: npx playwright install --with-deps
       
       - name: Run critical path tests only
-        run: npx playwright test tests/api/posts.spec.js tests/api/users.spec.js --grep "@critical"
+        run: npx playwright test tests/api/posts.spec.js tests/api/users.spec.js
         continue-on-error: true
 
   security-check:
@@ -163,7 +163,7 @@ jobs:
         run: npx playwright install --with-deps
       
       - name: Run performance tests
-        run: npx playwright test --grep "@performance"
+        run: npx playwright test tests/api/ --grep "Performance"
         continue-on-error: true
       
       - name: Archive performance metrics

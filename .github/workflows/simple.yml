@@ -5,9 +5,12 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+env:
+  WORKING_DIR: test-automation-foundation
+
 jobs:
   test:
-    name: Run API Tests
+    name: API Tests
     runs-on: ubuntu-latest
     
     steps:
@@ -21,35 +24,28 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd test-automation-foundation
+          cd ${{ env.WORKING_DIR }}
           npm ci
       
       - name: Install Playwright browsers
         run: |
-          cd test-automation-foundation
-          npx playwright install --with-deps
-      
-      - name: Verify installation
-        run: |
-          cd test-automation-foundation
-          node --version
-          npm --version
-          npx playwright --version
+          cd ${{ env.WORKING_DIR }}
+          npx playwright install chromium --with-deps
       
       - name: Run tests
         run: |
-          cd test-automation-foundation
+          cd ${{ env.WORKING_DIR }}
           npm test
         env:
           CI: true
       
-      - name: Upload results (if any)
+      - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: simple-test-results
           path: |
-            test-automation-foundation/test-results/
-            test-automation-foundation/playwright-report/
+            ${{ env.WORKING_DIR }}/test-results/
+            ${{ env.WORKING_DIR }}/playwright-report/
           retention-days: 7
         continue-on-error: true

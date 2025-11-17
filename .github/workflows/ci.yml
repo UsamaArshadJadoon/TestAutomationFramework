@@ -12,9 +12,6 @@ jobs:
   test:
     name: API Tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./test-automation-foundation
     
     strategy:
       matrix:
@@ -29,15 +26,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: 'test-automation-foundation/package-lock.json'
       
       - name: Install dependencies
         run: npm ci
+        working-directory: ./test-automation-foundation
       
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+        working-directory: ./test-automation-foundation
       
       - name: Verify Playwright installation
         run: npx playwright --version
+        working-directory: ./test-automation-foundation
       
       - name: Debug environment
         run: |
@@ -47,12 +49,15 @@ jobs:
           echo "NPM version: $(npm --version)"
           echo "Project structure:"
           find . -name "*.js" -type f | head -10
+        working-directory: ./test-automation-foundation
       
       - name: Run linting (warnings only)
         run: npm run lint || echo "Lint warnings found but continuing..."
+        working-directory: ./test-automation-foundation
         
       - name: Run API tests
         run: npm test
+        working-directory: ./test-automation-foundation
         env:
           CI: true
           PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results.xml
@@ -63,16 +68,13 @@ jobs:
         with:
           name: test-results-node-${{ matrix.node-version }}
           path: |
-            test-results/
-            playwright-report/
+            test-automation-foundation/test-results/
+            test-automation-foundation/playwright-report/
           retention-days: 30
 
   smoke-test:
     name: Smoke Tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./test-automation-foundation
     
     steps:
       - name: Checkout code
@@ -82,15 +84,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: 'test-automation-foundation/package-lock.json'
       
       - name: Install dependencies
         run: npm ci
+        working-directory: ./test-automation-foundation
       
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+        working-directory: ./test-automation-foundation
       
       - name: Run smoke tests
         run: npx playwright test tests/api/posts.spec.js --reporter=list
+        working-directory: ./test-automation-foundation
         continue-on-error: true
 
   summary:

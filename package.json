@@ -1,0 +1,37 @@
+{
+  "name": "test-automation-foundation",
+  "version": "1.0.0",
+  "description": "Production-ready test automation framework for JSONPlaceholder API",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:posts": "playwright test tests/api/posts.spec.js",
+    "test:users": "playwright test tests/api/users.spec.js",
+    "test:comments": "playwright test tests/api/comments.spec.js",
+    "test:integration": "playwright test tests/integration/",
+    "test:report": "playwright show-report",
+    "lint": "eslint tests/",
+    "lint:fix": "eslint tests/ --fix"
+  },
+  "keywords": [
+    "playwright",
+    "api-testing",
+    "automation",
+    "ci-cd",
+    "quality-assurance"
+  ],
+  "author": "Test Automation Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-playwright": "^0.20.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

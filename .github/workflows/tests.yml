@@ -29,7 +29,6 @@ jobs:
     
     - name: Run API tests
       run: npm test
-      continue-on-error: true
     
     - name: Upload test artifacts
       if: always()
@@ -40,4 +39,3 @@ jobs:
           playwright-report/
           test-results/
         retention-days: 7
-      continue-on-error: true

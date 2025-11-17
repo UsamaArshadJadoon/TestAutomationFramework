@@ -12,6 +12,9 @@ jobs:
   test:
     name: API Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./test-automation-foundation
     
     strategy:
       matrix:
@@ -27,12 +30,25 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: './test-automation-foundation/package-lock.json'
       
       - name: Install dependencies
         run: npm ci
       
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      
       - name: Verify Playwright installation
         run: npx playwright --version
+      
+      - name: Debug environment
+        run: |
+          pwd
+          ls -la
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Project structure:"
+          find . -name "*.js" -type f | head -10
       
       - name: Run linting (warnings only)
         run: npm run lint || echo "Lint warnings found but continuing..."
@@ -56,6 +72,9 @@ jobs:
   smoke-test:
     name: Smoke Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./test-automation-foundation
     
     steps:
       - name: Checkout code
@@ -66,9 +85,13 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
+          cache-dependency-path: './test-automation-foundation/package-lock.json'
       
       - name: Install dependencies
         run: npm ci
+      
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
       
       - name: Run smoke tests
         run: npx playwright test tests/api/posts.spec.js --reporter=list
